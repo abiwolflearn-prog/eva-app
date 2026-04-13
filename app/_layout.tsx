@@ -1,24 +1,38 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
-
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
+import { AuthProvider } from '../context/AuthContext';
+import { AcademicProvider } from '../context/AcademicContext';
+import { ThemeProvider } from '../context/ThemeContext';
+import { NotificationProvider } from '../context/NotificationContext';
+import { NetworkProvider } from '../context/NetworkContext';
+import { NotificationBanner } from '../components/NotificationBanner';
+import { OfflineBanner } from '../components/OfflineBanner';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <NetworkProvider>
+        <ThemeProvider>
+          <NotificationProvider>
+            <AuthProvider>
+              <AcademicProvider>
+                <OfflineBanner />
+                <NotificationBanner />
+                <Stack screenOptions={{ headerShown: false }}>
+                  <Stack.Screen name="index" />
+                  <Stack.Screen name="splash" />
+                  <Stack.Screen name="login" />
+                  <Stack.Screen name="register" />
+                  <Stack.Screen name="academic-selection" />
+                  <Stack.Screen name="(student)" />
+                  <Stack.Screen name="(admin)" />
+                </Stack>
+              </AcademicProvider>
+            </AuthProvider>
+          </NotificationProvider>
+        </ThemeProvider>
+      </NetworkProvider>
+    </GestureHandlerRootView>
   );
 }
+
