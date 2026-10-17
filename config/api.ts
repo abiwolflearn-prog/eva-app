@@ -17,7 +17,8 @@ export const LOCAL_API_URL = Platform.OS === 'android' && !debuggerHost
   : `http://${localIP}:5000/api`;
 
 // IMPORTANT: Replace this with your actual Render or MongoDB Atlas-backed production URL
-export const PROD_API_URL = "https://eva-backend-d1nu.onrender.com/api";
+//export const PROD_API_URL = "https://eva-backend-d1nu.onrender.com/api";
+export const PROD_API_URL = "https://eva-backend-1-cyd9.onrender.com/api";
 
 // The final active URL
 // ALWAYS use the production backend as requested for stability across Expo Go and APK
